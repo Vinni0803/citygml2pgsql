@@ -60,7 +60,7 @@ def fullName(elmentName, root):
     namespace = findNamespaceFor(elmentName, root)
     return namespace+elmentName if namespace else None
 
-def buildingGeomTypes(root, lods=range(3)):
+def buildingGeomTypes(root, lods=range(4)):
     types = set()
     name = fullName('Building', root)
     if not name:
@@ -91,7 +91,7 @@ def citygml2pgsql(filename, table_name, srid, lod, geometry_column="geom"):
                 polys = filter(None, [gmlPolygon2wkt(poly, dim) \
                             for poly in geom.iter(fullName("Polygon", building))])
                 if polys:
-                    print "INSERT INTO "+table_name+"("+geometry_column +") VALUES ("\
+                    print "INSERT INTO \""+table_name+"\"("+geometry_column +") VALUES ("\
                           "'SRID="+str(srid)+\
                             "; POLYHEDRALSURFACE("+",".join(polys)+\
                             ")'::geometry );"
